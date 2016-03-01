@@ -66,7 +66,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_gauge_to_statsd() throws Exception {
-        client.recordGaugeValue("mygauge", Long.MAX_VALUE);
+        client.recordGaugeValue("mygauge", Long.MAX_VALUE, 0.1);
         server.waitForMessage();
         
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:9223372036854775807|g"));
@@ -74,7 +74,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_fractional_gauge_to_statsd() throws Exception {
-        client.recordGaugeValue("mygauge", 423.123456789d);
+        client.recordGaugeValue("mygauge", 423.123456789d, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:423.123456789|g"));
@@ -82,7 +82,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_large_fractional_gauge_to_statsd() throws Exception {
-        client.recordGaugeValue("mygauge", 423423423.9d);
+        client.recordGaugeValue("mygauge", 423423423.9d, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:423423423.9|g"));
@@ -90,7 +90,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_zero_gauge_to_statsd() throws Exception {
-        client.recordGaugeValue("mygauge", 0L);
+        client.recordGaugeValue("mygauge", 0L, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:0|g"));
@@ -98,7 +98,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_negagive_gauge_to_statsd_by_resetting_to_zero_first() throws Exception {
-        client.recordGaugeValue("mygauge", -423L);
+        client.recordGaugeValue("mygauge", -423L, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:0|g\nmy.prefix.mygauge:-423|g"));
@@ -106,7 +106,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_gauge_positive_delta_to_statsd() throws Exception {
-        client.recordGaugeDelta("mygauge", 423L);
+        client.recordGaugeDelta("mygauge", 423L, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:+423|g"));
@@ -114,7 +114,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_gauge_negative_delta_to_statsd() throws Exception {
-        client.recordGaugeDelta("mygauge", -423L);
+        client.recordGaugeDelta("mygauge", -423L, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:-423|g"));
@@ -122,7 +122,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_gauge_zero_delta_to_statsd() throws Exception {
-        client.recordGaugeDelta("mygauge", 0L);
+        client.recordGaugeDelta("mygauge", 0L, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mygauge:+0|g"));
@@ -157,7 +157,7 @@ public final class NonBlockingStatsDClientTest {
         final long startTime = System.currentTimeMillis() - 1000L;
 
         final long beforeCompletionTime = System.currentTimeMillis();
-        client.recordExecutionTimeToNow("mytime", startTime);
+        client.recordExecutionTimeToNow("mytime", startTime, 0.1);
         final long afterCompletionTime = System.currentTimeMillis();
 
         server.waitForMessage();
@@ -173,7 +173,7 @@ public final class NonBlockingStatsDClientTest {
 
     @Test(timeout=5000L) public void
     sends_timer_of_zero_to_statsd_based_on_specified_start_time_in_the_future() throws Exception {
-        client.recordExecutionTimeToNow("mytime", System.currentTimeMillis() + 100000L);
+        client.recordExecutionTimeToNow("mytime", System.currentTimeMillis() + 100000L, 0.1);
         server.waitForMessage();
 
         assertThat(server.messagesReceived(), contains("my.prefix.mytime:0|ms"));

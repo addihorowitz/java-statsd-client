@@ -44,19 +44,19 @@ public abstract class ConvenienceMethodProvidingStatsDClient implements StatsDCl
     }
 
     /**
-     * Convenience method equivalent to {@link #recordGaugeValue(String, long)}.
+     * Convenience method equivalent to {@link #recordGaugeValue(String, long, double)}.
      */
     @Override
-    public final void gauge(String aspect, long value) {
-        recordGaugeValue(aspect, value);
+    public final void gauge(String aspect, long value, double sampleRate) {
+        recordGaugeValue(aspect, value, sampleRate);
     }
 
     /**
-     * Convenience method equivalent to {@link #recordGaugeValue(String, double)}.
+     * Convenience method equivalent to {@link #recordGaugeValue(String, double, double)}.
      */
     @Override
-    public final void gauge(String aspect, double value) {
-        recordGaugeValue(aspect, value);
+    public final void gauge(String aspect, double value, double sampleRate) {
+        recordGaugeValue(aspect, value, sampleRate);
     }
 
     /**
@@ -71,8 +71,8 @@ public abstract class ConvenienceMethodProvidingStatsDClient implements StatsDCl
      * Convenience method equivalent to {@link #recordExecutionTime(String, long)}.
      */
     @Override
-    public final void time(String aspect, long timeInMs) {
-        recordExecutionTime(aspect, timeInMs);
+    public final void time(String aspect, long timeInMs, double sampleRate) {
+        recordExecutionTime(aspect, timeInMs, sampleRate);
     }
 
     @Override
@@ -81,7 +81,7 @@ public abstract class ConvenienceMethodProvidingStatsDClient implements StatsDCl
     }
 
     @Override
-    public void recordExecutionTimeToNow(String aspect, long systemTimeMillisAtStart) {
-        time(aspect, Math.max(0, System.currentTimeMillis() - systemTimeMillisAtStart));
+    public void recordExecutionTimeToNow(String aspect, long systemTimeMillisAtStart, double sampleRate) {
+        time(aspect, Math.max(0, System.currentTimeMillis() - systemTimeMillisAtStart), sampleRate);
     }
 }

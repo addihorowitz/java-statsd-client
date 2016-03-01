@@ -91,12 +91,12 @@ public interface StatsDClient {
      * @param value
      *     the new reading of the gauge
      */
-    void recordGaugeValue(String aspect, long value);
+    void recordGaugeValue(String aspect, long value, double sampleRate);
 
     /**
-     * Convenience method equivalent to {@link #recordGaugeValue(String, long)} but for double values.
+     * Convenience method equivalent to {@link #recordGaugeValue(String, long, double)} but for double values.
      */
-    void recordGaugeValue(String aspect, double value);
+    void recordGaugeValue(String aspect, double value, double sampleRate);
 
     /**
      * Records a change in the value of the specified named gauge.
@@ -108,22 +108,22 @@ public interface StatsDClient {
      * @param delta
      *     the +/- delta to apply to the gauge
      */
-    void recordGaugeDelta(String aspect, long delta);
+    void recordGaugeDelta(String aspect, long delta, double sampleRate);
 
     /**
-     * Convenience method equivalent to {@link #recordGaugeDelta(String, long)} but for double deltas.
+     * Convenience method equivalent to {@link #recordGaugeDelta(String, long, double)} but for double deltas.
      */
-    void recordGaugeDelta(String aspect, double delta);
+    void recordGaugeDelta(String aspect, double delta, double sampleRate);
 
     /**
-     * Convenience method equivalent to {@link #recordGaugeValue(String, long)}.
+     * Convenience method equivalent to {@link #recordGaugeValue(String, long, double)}.
      */
-    void gauge(String aspect, long value);
+    void gauge(String aspect, long value, double sampleRate);
 
     /**
-     * Convenience method equivalent to {@link #recordGaugeValue(String, double)}.
+     * Convenience method equivalent to {@link #recordGaugeValue(String, double, double)}.
      */
-    void gauge(String aspect, double value);
+    void gauge(String aspect, double value, double sampleRate);
 
     /**
      * StatsD supports counting unique occurrences of events between flushes, Call this method to records an occurrence
@@ -182,11 +182,11 @@ public interface StatsDClient {
      * @param timeInMs
      *     the system time, in millis, at the start of the operation that has just completed
      */
-    void recordExecutionTimeToNow(String aspect, long systemTimeMillisAtStart);
+    void recordExecutionTimeToNow(String aspect, long systemTimeMillisAtStart, double sampleRate);
 
     /**
-     * Convenience method equivalent to {@link #recordExecutionTime(String, long)}.
+     * Convenience method equivalent to {@link #recordExecutionTime(String, long, double)}.
      */
-    void time(String aspect, long value);
+    void time(String aspect, long value, double sampleRate);
 
 }

@@ -134,31 +134,31 @@ public final class NonBlockingStatsDClient extends ConvenienceMethodProvidingSta
      *     the new reading of the gauge
      */
     @Override
-    public void recordGaugeValue(String aspect, long value) {
-        recordGaugeCommon(aspect, Long.toString(value), value < 0, false);
+    public void recordGaugeValue(String aspect, long value, double sampleRate) {
+        recordGaugeCommon(aspect, Long.toString(value), value < 0, false, sampleRate);
     }
 
     @Override
-    public void recordGaugeValue(String aspect, double value) {
-        recordGaugeCommon(aspect, stringValueOf(value), value < 0, false);
+    public void recordGaugeValue(String aspect, double value, double sampleRate) {
+        recordGaugeCommon(aspect, stringValueOf(value), value < 0, false, sampleRate);
     }
 
     @Override
-    public void recordGaugeDelta(String aspect, long value) {
-        recordGaugeCommon(aspect, Long.toString(value), value < 0, true);
+    public void recordGaugeDelta(String aspect, long value, double sampleRate) {
+        recordGaugeCommon(aspect, Long.toString(value), value < 0, true, sampleRate);
     }
 
     @Override
-    public void recordGaugeDelta(String aspect, double value) {
-        recordGaugeCommon(aspect, stringValueOf(value), value < 0, true);
+    public void recordGaugeDelta(String aspect, double value, double sampleRate) {
+        recordGaugeCommon(aspect, stringValueOf(value), value < 0, true, sampleRate);
     }
 
-    private void recordGaugeCommon(String aspect, String value, boolean negative, boolean delta) {
+    private void recordGaugeCommon(String aspect, String value, boolean negative, boolean delta, double sampleRate) {
         final StringBuilder message = new StringBuilder();
         if (!delta && negative) {
             message.append(messageFor(aspect, "0", "g")).append('\n');
         }
-        message.append(messageFor(aspect, (delta && !negative) ? ("+" + value) : value, "g"));
+        message.append(messageFor(aspect, (delta && !negative) ? ("+" + value) : value, "g", sampleRate));
         send(message.toString());
     }
 
