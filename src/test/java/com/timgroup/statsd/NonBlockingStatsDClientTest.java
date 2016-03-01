@@ -69,7 +69,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeValue("mygauge", Long.MAX_VALUE, 0.1);
         server.waitForMessage();
         
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:9223372036854775807|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:9223372036854775807|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
@@ -77,7 +77,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeValue("mygauge", 423.123456789d, 0.1);
         server.waitForMessage();
 
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:423.123456789|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:423.123456789|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
@@ -85,7 +85,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeValue("mygauge", 423423423.9d, 0.1);
         server.waitForMessage();
 
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:423423423.9|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:423423423.9|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
@@ -93,7 +93,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeValue("mygauge", 0L, 0.1);
         server.waitForMessage();
 
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:0|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:0|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
@@ -101,7 +101,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeValue("mygauge", -423L, 0.1);
         server.waitForMessage();
 
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:0|g\nmy.prefix.mygauge:-423|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:0|g|0.1\nmy.prefix.mygauge:-423|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
@@ -109,7 +109,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeDelta("mygauge", 423L, 0.1);
         server.waitForMessage();
 
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:+423|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:+423|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
@@ -117,7 +117,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeDelta("mygauge", -423L, 0.1);
         server.waitForMessage();
 
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:-423|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:-423|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
@@ -125,7 +125,7 @@ public final class NonBlockingStatsDClientTest {
         client.recordGaugeDelta("mygauge", 0L, 0.1);
         server.waitForMessage();
 
-        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:+0|g"));
+        assertThat(server.messagesReceived(), contains("my.prefix.mygauge:+0|g|0.1"));
     }
 
     @Test(timeout=5000L) public void
