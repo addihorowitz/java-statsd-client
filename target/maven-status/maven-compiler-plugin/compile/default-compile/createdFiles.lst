@@ -1,0 +1,13 @@
+com/timgroup/statsd/StatsDClientException.class
+com/timgroup/statsd/StatsDClientErrorHandler.class
+com/timgroup/statsd/NonBlockingStatsDClientTest$DummyStatsDServer.class
+com/timgroup/statsd/NonBlockingUdpSender$1.class
+com/timgroup/statsd/NonBlockingUdpSender$2.class
+com/timgroup/statsd/NonBlockingStatsDClientTest.class
+com/timgroup/statsd/NonBlockingStatsDClient$1.class
+com/timgroup/statsd/NonBlockingStatsDClientTest$DummyStatsDServer$1.class
+com/timgroup/statsd/NoOpStatsDClient.class
+com/timgroup/statsd/NonBlockingStatsDClient.class
+com/timgroup/statsd/StatsDClient.class
+com/timgroup/statsd/ConvenienceMethodProvidingStatsDClient.class
+com/timgroup/statsd/NonBlockingUdpSender.class
